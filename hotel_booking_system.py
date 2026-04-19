@@ -59,7 +59,7 @@ def print_menu():
 def main():
 
     print("Welcome to the Hotel Booking System!")
-    
+
 # The main loop of the program that displays the menu and processes user input
     while True:
         print_menu()
@@ -81,6 +81,8 @@ def main():
         else:
             print("Invalid choice. Please enter a number from 1 to 6.")
 
-
+# --- Run the program ---
+if __name__ == "__main__":
+    main()
 
 
