@@ -56,7 +56,33 @@ def view_available_rooms():
 
 
 #Book a room here
+def book_room():
+    print_line()
+    print("BOOK A ROOM")
+    view_available_rooms()
 
+    number_input = input("Enter room number to book: ").strip()
+    if not number_input.isdigit():
+        print("Invalid input. Room number must be a number.")
+        return
+    number = int(number_input)
+
+    if number not in rooms:
+        print(f"Room {number} does not exist.")
+        return
+
+    if not rooms[number]["available"]:
+        print(f"Room {number} is already booked by {rooms[number]['guest']}.")
+        return
+
+    guest = input("Guest name: ").strip()
+    if guest == "":
+        print("Guest name cannot be empty.")
+        return
+
+    rooms[number]["available"] = False
+    rooms[number]["guest"] = guest
+    print(f"Room {number} booked successfully for {guest}!")
 
 
 
