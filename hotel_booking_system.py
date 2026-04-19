@@ -82,7 +82,35 @@ def book_room():
 
 
 #Remove a room here
+def remove_room():
+    print_line()
+    print("REMOVE A ROOM")
+    print("All rooms:")
+    for number, room in rooms.items():
+        if room["available"]:
+            status = "free"
+        else:
+            status = f"booked - {room['guest']}"
+        print(f"  Room {number} | {room['type']:6} | {status}")
 
+    number_input = input("Enter room number to remove: ").strip()
+    if not number_input.isdigit():
+        print("Invalid input. Room number must be a number.")
+        return
+    number = int(number_input)
+
+    if number not in rooms:
+        print(f"Room {number} does not exist.")
+        return
+
+    if not rooms[number]["available"]:
+        confirm = input(f"Room {number} is occupied by {rooms[number]['guest']}. Remove anyway? (yes/no): ")
+        if confirm.lower() != "yes":
+            print("Removal cancelled.")
+            return
+
+    del rooms[number]
+    print(f"Room {number} removed successfully.")
 
 
 
