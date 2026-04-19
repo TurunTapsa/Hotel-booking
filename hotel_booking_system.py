@@ -88,6 +88,38 @@ def book_room():
 
 
 #Check out a customer here
+def checkout():
+    print_line()
+    print("CHECK OUT")
+
+    print("Occupied rooms:")
+    found = False
+    for number, room in rooms.items():
+        if not room["available"]:
+            print(f"  Room {number} | {room['type']:6} | Guest: {room['guest']}")
+            found = True
+    if not found:
+        print("  No rooms are currently occupied.")
+        return
+
+    number_input = input("Enter room number to check out: ").strip()
+    if not number_input.isdigit():
+        print("Invalid input. Room number must be a number.")
+        return
+    number = int(number_input)
+
+    if number not in rooms:
+        print(f"Room {number} does not exist.")
+        return
+
+    if rooms[number]["available"]:
+        print(f"Room {number} is already free.")
+        return
+
+    guest = rooms[number]["guest"]
+    rooms[number]["available"] = True
+    rooms[number]["guest"] = None
+    print(f"Guest '{guest}' checked out from room {number}. Room is now free.")
 
 
 
