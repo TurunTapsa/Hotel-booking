@@ -11,7 +11,16 @@
 
 
 #View available rooms here
-
+def view_available_rooms():
+    print_line()
+    print("AVAILABLE ROOMS")
+    found = False
+    for number, room in rooms.items():
+        if room["available"]:
+            print(f"  Room {number} | {room['type']:6} | {room['price']} euros/night")
+            found = True
+    if not found:
+        print("  No rooms available at the moment.")
 
 
 
