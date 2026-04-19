@@ -5,6 +5,10 @@
 #Each room is stored as a dictionary with type, price, availability, and guest name
 
 
+#Formatting helper -> prints a line of dashes to separate sections in the console
+def print_line():
+    print("-" * 40)
+
 
 # Add a room function here
 
