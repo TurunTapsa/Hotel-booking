@@ -21,22 +21,22 @@ def add_room():
     print_line()
     print("ADD A NEW ROOM")
 
-    number_input = input("Room number: ").strip()
-    if not number_input.isdigit():
+    number_input = input("Room number: ")
+    if not number_input.isdigit(): #Checks if the input for room number is a valid digit. If not, it prints an error message and exits the function.
         print("Invalid input. Room number must be a number.")
         return
     number = int(number_input)
 
-    if number in rooms:
+    if number in rooms: #checks if the room number already exists
         print(f"Room {number} already exists.")
         return
 
-    room_type = input("Room type (single / double / suite): ").strip().lower()
-    if room_type not in ("single", "double", "suite"):
+    room_type = input("Room type (single / double / suite): ")
+    if room_type not in ("single", "double", "suite"): #Checks if the input for room type is one of the valid optionse
         print("Unknown room type. Use: single, double, or suite.")
         return
 
-    price_input = input("Price per night (euros): ").strip()
+    price_input = input("Price per night (euros): ")
     if not price_input.isdigit():
         print("Invalid price. Please enter a whole number.")
         return
@@ -51,8 +51,8 @@ def add_room():
 def view_available_rooms():
     print_line()
     print("AVAILABLE ROOMS")
-    found = False
-    for number, room in rooms.items():
+    found = False #Variable used to track if any available rooms are found. Starts as false and is set to true if at least one available room is found.
+    for number, room in rooms.items(): 
         if room["available"]:
             print(f"  Room {number} | {room['type']:6} | {room['price']} euros/night")
             found = True
@@ -67,21 +67,21 @@ def book_room():
     print("BOOK A ROOM")
     view_available_rooms()
 
-    number_input = input("Enter room number to book: ").strip()
-    if not number_input.isdigit():
+    number_input = input("Enter room number to book: ")
+    if not number_input.isdigit(): #Checks if the input for room number is a valid digit. If not, it prints an error message and exits the function.
         print("Invalid input. Room number must be a number.")
         return
     number = int(number_input)
 
     if number not in rooms:
-        print(f"Room {number} does not exist.")
+        print(f"Room {number} does not exist.") 
         return
 
-    if not rooms[number]["available"]:
-        print(f"Room {number} is already booked by {rooms[number]['guest']}.")
+    if not rooms[number]["available"]: #
+        print(f"Room {number} is already booked by {rooms[number]['guest']}.") 
         return
 
-    guest = input("Guest name: ").strip()
+    guest = input("Guest name: ")
     if guest == "":
         print("Guest name cannot be empty.")
         return
@@ -99,7 +99,7 @@ def checkout():
     print("CHECK OUT")
 
     print("Occupied rooms:")
-    found = False
+    found = False #Variable used to track if any occupied rooms are found. Starts as false and is set to true if at least one occupied room is found.
     for number, room in rooms.items():
         if not room["available"]:
             print(f"  Room {number} | {room['type']:6} | Guest: {room['guest']}")
@@ -108,7 +108,7 @@ def checkout():
         print("  No rooms are currently occupied.")
         return
 
-    number_input = input("Enter room number to check out: ").strip()
+    number_input = input("Enter room number to check out: ")
     if not number_input.isdigit():
         print("Invalid input. Room number must be a number.")
         return
@@ -122,10 +122,10 @@ def checkout():
         print(f"Room {number} is already free.")
         return
 
-    guest = rooms[number]["guest"]
-    rooms[number]["available"] = True
-    rooms[number]["guest"] = None
-    print(f"Guest '{guest}' checked out from room {number}. Room is now free.")
+    guest = rooms[number]["guest"] #stores the name of the guest currently using room. 
+    rooms[number]["available"] = True #Sets the availability of the room to true, indicating that it is now free.
+    rooms[number]["guest"] = None #Sets the guest name for the room to None, indicating that there is no longer a guest associated with the room.
+    print(f"Guest '{guest}' checked out from room {number}. Room is now free.") #
 
 
 
@@ -139,28 +139,28 @@ def remove_room():
     print("All rooms:")
     for number, room in rooms.items():
         if room["available"]:
-            status = "free"
+            status = "free" 
         else:
             status = f"booked - {room['guest']}"
         print(f"  Room {number} | {room['type']:6} | {status}")
 
-    number_input = input("Enter room number to remove: ").strip()
-    if not number_input.isdigit():
+    number_input = input("Enter room number to remove: ")
+    if not number_input.isdigit(): #Checks if the input for room number is a valid digit. If not, it prints an error message and exits the function.
         print("Invalid input. Room number must be a number.")
         return
     number = int(number_input)
 
     if number not in rooms:
-        print(f"Room {number} does not exist.")
+        print(f"Room {number} does not exist.") 
         return
 
-    if not rooms[number]["available"]:
+    if not rooms[number]["available"]: #Checks if the room is currently occupied. If it is, asks to remove the room anyway. 
         confirm = input(f"Room {number} is occupied by {rooms[number]['guest']}. Remove anyway? (yes/no): ")
         if confirm.lower() != "yes":
             print("Removal cancelled.")
             return
 
-    del rooms[number]
+    del rooms[number] #Deletes the room from the rooms dictionary
     print(f"Room {number} removed successfully.")
 
 
@@ -189,7 +189,7 @@ def main():
 # The main loop of the program that displays the menu and processes user input
     while True:
         print_menu()
-        choice = input("Choose an option (1-6): ").strip()
+        choice = input("Choose an option (1-6): ")
 
         if choice == "1":
             add_room()
